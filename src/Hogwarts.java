@@ -4,26 +4,13 @@ public abstract class Hogwarts {
     private int magicPower;
     private int teleportPower;
 
-    private String name;
+    private final String name;
 
-    private static Hogwarts[] students = new Hogwarts[12];
-    public static int counter = 0;
 
     public Hogwarts(String name, int magicPower, int teleportPower) {
         this.magicPower = magicPower;
         this.teleportPower = teleportPower;
         this.name = name;
-        students[counter] = this;
-        counter++;
-
-    }
-
-    public static void printAll() {
-        for (Hogwarts student : students) {
-            System.out.println(student);
-            System.out.println();
-        }
-        System.out.println("-----------------------------------------------");
     }
 
     public int getMagicPower() {
@@ -64,17 +51,28 @@ public abstract class Hogwarts {
         return "Hogwarts student: " + name + ", magic powa: " + magicPower + " teleport power: " + teleportPower;
     }
 
-    public int getTotalPoints() {
+    public int getTotalPoints() {      // Так и не понял, как заставить Джаву использовать этот метод из класса Hogwarts когда необходимо сравнить двух учеников с разных факультетов только по базовым параметрам. Поэтому завел отдельный метод с точно такой же реализацией.
         return magicPower + teleportPower;
     }
 
-    public void getBestOfHogwarts() {
-        Hogwarts best = students[0];
-        for (int i = 0; i < students.length - 1; i++) {
-            if (students[i + 1] != null && students[i].getTotalPoints() < students[i + 1].getTotalPoints()) {
-                best = students[i + 1];
-            }
-        }
-
+    public int getBasicPowers() {
+        return magicPower + teleportPower;
     }
+
+
+    public void printStudent() {
+        System.out.println(this.getName() + " magic: " + this.magicPower + " teleport: " + this.teleportPower + ". " + this);
+    }
+
+    public void printComparison(Hogwarts student) {
+        System.out.print("В Хогвартсе: ");
+        if (this.getBasicPowers() > student.getBasicPowers()) {
+            System.out.println(this.getName() + " сильнее, чем " + student.getName());
+        } else {
+            System.out.println(this.getName() + " слабее, чем " + student.getName());
+        }
+        System.out.println(this.getBasicPowers() + " vs. " + student.getBasicPowers());
+    }
+
+
 }

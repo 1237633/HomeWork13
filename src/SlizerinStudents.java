@@ -1,14 +1,11 @@
 import java.util.Objects;
 
-public class SlizerinStudents extends Hogwarts{
+public class SlizerinStudents extends Hogwarts {
     private int cunning; //хитрость
     private int decisiveness; //решительнось
     private int ambitious;
     private int resourcefulness; //находчивость
     private int lustForPower;
-
-    private static SlizerinStudents[] students = new SlizerinStudents[3];
-    public static int counter = 0;
 
 
     public SlizerinStudents(String name, int magicPower, int teleportPower, int cunning, int decisiveness, int ambitious, int resourcefulness, int lustForPower) {
@@ -18,16 +15,6 @@ public class SlizerinStudents extends Hogwarts{
         this.ambitious = ambitious;
         this.resourcefulness = resourcefulness;
         this.lustForPower = lustForPower;
-        students[counter] = this;
-        counter++;
-    }
-
-    public static void printAll(){
-        for (SlizerinStudents student: students) {
-            System.out.println(student);
-            System.out.println();
-        }
-        System.out.println("-----------------------------------------------");
     }
 
     public int getCunning() {
@@ -86,31 +73,27 @@ public class SlizerinStudents extends Hogwarts{
 
     @Override
     public String toString() {
-        return "Slizerin student: " + getName() + ", magic powa: " + getMagicPower() + " teleport power: " + getTeleportPower() +
+        return "Slizerin specs: " +
                 " cunning= " + cunning +
                 ", decisiveness= " + decisiveness +
                 ", ambitious= " + ambitious +
                 ", resourcefulness= " + resourcefulness +
-                ", lustForPower= " + lustForPower +
-                '}';
+                ", lustForPower= " + lustForPower;
     }
 
     @Override
-    public int getTotalPoints(){
-        return cunning + decisiveness + ambitious + lustForPower + resourcefulness + getMagicPower() + getTeleportPower();
+    public int getTotalPoints() {
+        return cunning + decisiveness + ambitious + lustForPower + resourcefulness + super.getTotalPoints();
     }
 
-
-    public static SlizerinStudents bestOfFaculty() {
-        if(students[0] != null) {
-            SlizerinStudents best = students[0];
-            for (int i = 0; i < students.length - 1; i++) {
-                if (students[i + 1] != null && students[i].getTotalPoints() < students[i + 1].getTotalPoints()) {
-                    best = students[i + 1];
-                }
-            }
-            return best;
+    public void printComparison(SlizerinStudents student) {
+        System.out.print("В Слизерине: ");
+        if (this.getTotalPoints() > student.getTotalPoints()) {
+            System.out.println(this.getName() + " сильнее, чем " + student.getName());
+        } else {
+            System.out.println(this.getName() + " слабее, чем " + student.getName());
         }
-        return null;
+        System.out.println(this.getTotalPoints() + " vs. " + student.getTotalPoints());
     }
+
 }

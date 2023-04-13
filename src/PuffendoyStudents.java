@@ -1,29 +1,17 @@
 import java.util.Objects;
 
-public class PuffendoyStudents extends Hogwarts{
+public class PuffendoyStudents extends Hogwarts {
 
     private int loyalty;
     private int industriousness;
     private int honesty;
 
-    private static PuffendoyStudents[] students = new PuffendoyStudents[3];
-    public static int counter = 0;
 
     public PuffendoyStudents(String name, int magicPower, int teleportPower, int loyalty, int industriousness, int honesty) {
         super(name, magicPower, teleportPower);
         this.loyalty = loyalty;
         this.industriousness = industriousness;
         this.honesty = honesty;
-        students[counter] = this;
-        counter++;
-    }
-
-    public static void printAll(){
-        for (PuffendoyStudents student: students) {
-            System.out.println(student);
-            System.out.println();
-        }
-        System.out.println("-----------------------------------------------");
     }
 
     public int getLoyalty() {
@@ -66,26 +54,25 @@ public class PuffendoyStudents extends Hogwarts{
 
     @Override
     public String toString() {
-        return "Puffendoy student: " + getName() + ", magic powa: " + getMagicPower() + " teleport power: " + getTeleportPower() +
+        return "Puffendoy specs: " +
                 " loyalty= " + loyalty +
                 ", industriousness= " + industriousness +
-                ", honesty= " + honesty +
-                '}';
+                ", honesty= " + honesty;
     }
 
     @Override
     public int getTotalPoints() {
-        return loyalty + industriousness + honesty + getMagicPower() + getTeleportPower();
+        return loyalty + industriousness + honesty + super.getTotalPoints();
     }
 
-    public static PuffendoyStudents bestOfFaculty() {
-        PuffendoyStudents best = students[0];
-        for (int i = 0; i < students.length - 1; i++) {
-            if (students[i + 1] != null && students[i].getTotalPoints() < students[i + 1].getTotalPoints()) {
-                best = students[i + 1];
-            }
+    public void printComparison(PuffendoyStudents student) {
+        System.out.print("В Пуффендуе: ");
+        if (this.getTotalPoints() > student.getTotalPoints()) {
+            System.out.println(this.getName() + " сильнее, чем " + student.getName());
+        } else {
+            System.out.println(this.getName() + " слабее, чем " + student.getName());
         }
-        return best;
+        System.out.println(this.getTotalPoints() + " vs. " + student.getTotalPoints());
     }
 
 }

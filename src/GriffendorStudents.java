@@ -5,8 +5,6 @@ public class GriffendorStudents extends Hogwarts {
     private int nobility;
     private int honor;
     private int bravery;
-    private static GriffendorStudents[] students = new GriffendorStudents[3];
-    private static int counter = 0;
 
 
     public GriffendorStudents(String name, int magicPower, int teleportPower, int bravery, int nobility, int honor) {
@@ -14,19 +12,7 @@ public class GriffendorStudents extends Hogwarts {
         this.bravery = bravery;
         this.honor = honor;
         this.nobility = nobility;
-        students[counter] = this;
-        counter++;
     }
-
-
-    public static void printAll() {
-        for (Hogwarts student : students) {
-            System.out.println(student);
-            System.out.println();
-        }
-        System.out.println("-----------------------------------------------");
-    }
-
 
     public int getNobility() {
         return nobility;
@@ -68,7 +54,7 @@ public class GriffendorStudents extends Hogwarts {
 
     @Override
     public String toString() {
-        return "Griffendor student: " + getName() + ", magic powa: " + getMagicPower() + " teleport power: " + getTeleportPower() +
+        return "Griffendor specs: " +
                 " nobility = " + nobility +
                 ", honor = " + honor +
                 ", bravery = " + bravery;
@@ -76,18 +62,16 @@ public class GriffendorStudents extends Hogwarts {
 
     @Override
     public int getTotalPoints() {
-        return bravery + honor + nobility + getMagicPower() + getTeleportPower();
+        return bravery + honor + nobility + super.getTotalPoints();
     }
 
-
-
-   public static GriffendorStudents bestOfFaculty() {  //
-        GriffendorStudents best = students[0];
-       for (int i = 0; i < students.length - 1; i++) {
-           if (students[i + 1] != null && students[i].getTotalPoints() < students[i + 1].getTotalPoints()) {
-               best = students[i + 1];
-           }
-       }
-        return best;
+    public void printComparison(GriffendorStudents student) {
+        System.out.print("В Гриффендоре: ");
+        if (this.getTotalPoints() > student.getTotalPoints()) {
+            System.out.println(this.getName() + " сильнее, чем " + student.getName());
+        } else {
+            System.out.println(this.getName() + " слабее, чем " + student.getName());
+        }
+        System.out.println(this.getTotalPoints() + " vs. " + student.getTotalPoints());
     }
 }
